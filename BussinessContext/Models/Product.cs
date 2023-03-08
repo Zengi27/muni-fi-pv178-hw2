@@ -1,11 +1,11 @@
-namespace HW02.Models;
+namespace HW02.BussinessContext.Models;
 
 public class Product
 {
-    public int Id;
-    public string Name;
-    public int CategoryId;
-    public int Price;
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public int CategoryId { get; set; }
+    public int Price { get; set; }
 
     public Product(int id, string name, int categoryId, int price)
     {
