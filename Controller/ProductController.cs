@@ -1,3 +1,6 @@
+using System.Diagnostics.Tracing;
+using HW02.BussinessContext.Models;
+using HW02.Model;
 using HW02.Service;
 
 namespace HW02.Controller;
@@ -6,30 +9,57 @@ public class ProductController
 {
     private ProductService _productService;
     private CategoryService _categoryService;
-    
+    public event EventHandler<Log> OperationCompleted; 
+
     public ProductController(ProductService productService, CategoryService categoryService)
     {
         _productService = productService;
         _categoryService = categoryService;
     }
 
-    private void AddProduct(string name, int categoryId, double price)
+    public void AddProduct(string name, int categoryId, double price)
     {
-        throw new NotImplementedException();
+        _productService.AddProduct(name, categoryId, price); 
+        InvokeSuccessfulOperation();
     }
 
-    private void DeleteProduct(int productId)
+    public void DeleteProduct(int productId)
     {
-        throw new NotImplementedException();
+        _productService.DeleteProduct(productId);
     }
 
-    private void ListProducts()
+    public void ListProducts()
     {
-        throw new NotImplementedException();
+        string output = _productService.ListProducts();
+        
+        Console.WriteLine(output);
     }
 
-    private void GetProductsByCategory(int categoryId)
+    public void GetProductsByCategory(int categoryId)
     {
-        throw new NotImplementedException();
+        string output = _productService.GetProductsByCategory(categoryId);
+        
+        Console.WriteLine(output);
+    }
+
+    public void UnknownCommand()
+    {
+        Console.WriteLine("Command not found");
+    }
+    
+    private void InvokeSuccessfulOperation()
+    {
+        OperationCompleted?.Invoke(this, new Log()
+        {
+            Timestamp = DateTime.Now.ToString("dd'/'MM'/'yyyy HH:mm:ss")
+        });
+    }
+
+    private void InvokeFailedOperation()
+    {
+        OperationCompleted?.Invoke(this, new Log()
+        {
+            
+        });
     }
 }

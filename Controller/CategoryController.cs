@@ -1,3 +1,4 @@
+using HW02.BussinessContext.Models;
 using HW02.Service;
 
 namespace HW02.Controller;
@@ -11,18 +12,20 @@ public class CategoryController
         _categoryService = categoryService;
     }
 
-    private void AddCategory(string name)
+    public void AddCategory(string name)
     {
-        throw new NotImplementedException();
+        _categoryService.AddCategory(name);
     }
 
-    private void DeleteCategory(int categoryId)
+    public void DeleteCategory(int categoryId)
     {
-        throw new NotImplementedException();
+        _categoryService.DeleteCategory(categoryId);
     }
 
-    private void ListCategories()
+    public void ListCategories()
     {
-        throw new NotImplementedException();
+        string output = _categoryService.ListCategory();
+        
+        Console.WriteLine(output);
     }
 }

@@ -1,36 +1,58 @@
 using HW02.BussinessContext;
 using HW02.BussinessContext.FileDatabase;
+using HW02.BussinessContext.Models;
+using HW02.Helpers;
 
 namespace HW02.Repository;
 
 public class ProductRepository
 {
     private ProductDBContext _productDbContext;
-    private CategoryDBContext _categoryDbContext;
-
-    public ProductRepository(ProductDBContext productDbContext, CategoryDBContext categoryDbContext)
+    private IdGenerator _idGenerator;
+    
+    public ProductRepository(ProductDBContext productDbContext, IdGenerator idGenerator)
     {
         _productDbContext = productDbContext;
-        _categoryDbContext = categoryDbContext;
+        _idGenerator = idGenerator;
     }
     
-    private void AddProduct(string name, int categoryId, double price)
+    public void AddProduct(string name, int categoryId, double price)
     {
-        throw new NotImplementedException();
+        List<Product> products = _productDbContext.ReadProducts();
+        Product product = new Product(_idGenerator.GetNextId(), name, categoryId, price);
+        
+
+        products.Add(product);
+        _productDbContext.SaveProducts(products);
     }
 
-    private void DeleteProduct(int productId)
+    public void DeleteProduct(int productId)
     {
-        throw new NotImplementedException();
+        List<Product> products = _productDbContext.ReadProducts();
+
+        Product product = products.Find(p => p.Id == productId);
+        if (product == null)
+        {
+            throw new IdNotFoundException(productId);
+        }
+        products.Remove(product);
+        _productDbContext.SaveProducts(products);
     }
 
-    private void ListProducts()
+    public List<Product> ListProducts()
     {
-        throw new NotImplementedException();
+        return _productDbContext.ReadProducts();
     }
 
-    private void GetProductsByCategory(int categoryId)
+    public List<Product> GetProductsByCategory(int categoryId)
     {
-        throw new NotImplementedException();
+        List<Product> products = _productDbContext.ReadProducts().FindAll(p => p.CategoryId == categoryId);
+
+        if (products.Count < 1)
+        {
+            throw new IdNotFoundException(categoryId);
+        }
+
+        return products;
     }
 }

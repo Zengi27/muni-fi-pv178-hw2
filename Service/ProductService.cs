@@ -1,3 +1,4 @@
+using HW02.BussinessContext.Models;
 using HW02.Repository;
 
 namespace HW02.Service;
@@ -13,23 +14,43 @@ public class ProductService
         _categoryRepository = categoryRepository;
     }
 
-    private void AddProduct(string name, int categoryId, double price)
+    public void AddProduct(string name, int categoryId, double price)
     {
-        throw new NotImplementedException();
+        _productRepository.AddProduct(name, categoryId, price);
     }
 
-    private void DeleteProduct(int productId)
+    public void DeleteProduct(int productId)
     {
-        throw new NotImplementedException();
+        _productRepository.DeleteProduct(productId);
     }
 
-    private void ListProducts()
+    public string ListProducts()
     {
-        throw new NotImplementedException();
+        List<Product> products = _productRepository.ListProducts();
+
+        return MakeTableOutput(products);
     }
 
-    private void GetProductsByCategory(int categoryId)
+    public string GetProductsByCategory(int categoryId)
     {
-        throw new NotImplementedException();
+        List<Product> products = _productRepository.GetProductsByCategory(categoryId);
+        
+        return MakeTableOutput(products); 
+    }
+
+    private string MakeTableOutput(List<Product> products)
+    {
+        var header = $"{"Id",-3}" + " | " + $"{"Name",-10}" + " | " + $"{"CategoryId",-10}" + " | " + "Price\n";
+        var line = new string('-', header.Length) + "\n";
+        var body = "";
+        
+        foreach (var product in products)
+        {
+            body += $"{product.Id,-3}" + " | " + $"{product.Name,-10}" + " | " + $"{product.CategoryId,-10}" + " | " + $"{product.Price}\n";
+        }
+        
+        var output = header + line + body;
+
+        return output;
     }
 }

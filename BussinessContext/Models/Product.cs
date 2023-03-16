@@ -5,9 +5,9 @@ public class Product
     public int Id { get; set; }
     public string Name { get; set; }
     public int CategoryId { get; set; }
-    public int Price { get; set; }
+    public double Price { get; set; }
 
-    public Product(int id, string name, int categoryId, int price)
+    public Product(int id, string name, int categoryId, double price)
     {
         Id = id;
         Name = name;

@@ -1,28 +1,45 @@
+using HW02.BussinessContext;
 using HW02.BussinessContext.FileDatabase;
+using HW02.BussinessContext.Models;
+using HW02.Helpers;
 
 namespace HW02.Repository;
 
 public class CategoryRepository
 {
     private CategoryDBContext _categoryDbContext;
+    private IdGenerator _idGenerator;
 
-    public CategoryRepository(CategoryDBContext categoryDbContext)
+    public CategoryRepository(CategoryDBContext categoryDbContext, IdGenerator idGenerator)
     {
         _categoryDbContext = categoryDbContext;
+        _idGenerator = idGenerator;
     }
     
-    private void AddCategory(string name)
+    public void AddCategory(string name)
     {
-        throw new NotImplementedException();
+        List<Category> categories = _categoryDbContext.ReadCategories();
+        Category category = new Category(_idGenerator.GetNextId(), name);
+        
+        categories.Add(category);
+        _categoryDbContext.SaveCategories(categories);
     }
 
-    private void DeleteCategory(int categoryId)
+    public void DeleteCategory(int categoryId)
     {
-        throw new NotImplementedException();
+        List<Category> categories = _categoryDbContext.ReadCategories();
+
+        Category category = categories.Find(c => c.Id == categoryId);
+        if (category == null)
+        {
+            throw new IdNotFoundException(categoryId);
+        }
+        categories.Remove(category);
+        _categoryDbContext.SaveCategories(categories);
     }
 
-    private void ListCategory()
+    public List<Category> ListCategory()
     {
-        throw new NotImplementedException();
+        return _categoryDbContext.ReadCategories();
     }
 }
