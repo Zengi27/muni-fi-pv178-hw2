@@ -22,5 +22,8 @@ public class Seeder
         _productController.AddProduct(new string[]{"apple", "1", "35"});
         _productController.AddProduct(new string[]{"banana", "1", "10"});
         _productController.AddProduct(new string[]{"carrot", "2", "5"});
+        _productController.AddProduct(new string[]{"tomato", "2", "8"});
+        _productController.AddProduct(new string[]{"dog", "3", "5,1"});
+        _productController.AddProduct(new string[]{"cat", "3", "5,2"});
     }
 }
