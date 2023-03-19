@@ -3,12 +3,12 @@ using HW02.Helpers;
 
 namespace HW02.InputContext;
 
-public class CommandParser
+public class InputParser
 {
     private CategoryController _categoryController;
     private ProductController _productController;
 
-    public CommandParser(CategoryController categoryController, ProductController productController)
+    public InputParser(CategoryController categoryController, ProductController productController)
     {
         _categoryController = categoryController;
         _productController = productController;

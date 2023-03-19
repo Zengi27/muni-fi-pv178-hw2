@@ -45,11 +45,10 @@ namespace HW02
             productController.OperationCompleted += analyticalDataListener.OnOperationCompleted;
             
             Seeder seeder = new Seeder(categoryController, productController);
-            
-            seeder.Seeding();
+            seeder.Seed();
 
-            CommandParser commandParser = new CommandParser(categoryController, productController);
-            commandParser.Parse();
+            InputParser inputParser = new InputParser(categoryController, productController);
+            inputParser.Parse();
         }
     }
 }

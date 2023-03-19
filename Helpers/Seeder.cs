@@ -16,7 +16,7 @@ public class Seeder
         _productController = productController;
     }
 
-    public void Seeding()
+    public void Seed()
     {
         _categoryController.AddCategory(new string[] {"fruit"});
         _categoryController.AddCategory(new string[] {"vegetables"});
