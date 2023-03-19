@@ -19,8 +19,8 @@ public class InputParser
         {
             string input = Console.ReadLine();
             string[] command = input.Split(' ');
-            var commandName = command[0];
-            var args = command.Skip(1).ToArray();
+            string commandName = command[0];
+            string[] args = command.Skip(1).ToArray();
             
             if (commandName == "list-categories")
             {

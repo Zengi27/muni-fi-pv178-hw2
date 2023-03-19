@@ -38,16 +38,16 @@ public class ProductService
 
     private string MakeTableOutput(List<Product> products)
     {
-        var header = $"{"Id",-3}" + " | " + $"{"Name",-10}" + " | " + $"{"CategoryId",-10}" + " | " + "Price\n";
-        var line = new string('-', header.Length) + "\n";
-        var body = "";
+        string header = $"{"Id",-3}" + " | " + $"{"Name",-10}" + " | " + $"{"CategoryId",-10}" + " | " + "Price\n";
+        string line = new string('-', header.Length) + "\n";
+        string body = "";
         
         foreach (var product in products)
         {
             body += $"{product.Id,-3}" + " | " + $"{product.Name,-10}" + " | " + $"{product.CategoryId,-10}" + " | " + $"{product.Price}\n";
         }
         
-        var output = header + line + body;
+        string output = header + line + body;
 
         return output;
     }

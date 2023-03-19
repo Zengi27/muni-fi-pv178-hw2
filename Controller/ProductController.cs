@@ -7,7 +7,7 @@ namespace HW02.Controller;
 
 public class ProductController
 {
-    private ProductService _productService;
+    private readonly ProductService _productService;
     public event EventHandler<Log> OperationCompleted; 
 
     public ProductController(ProductService productService)

@@ -33,18 +33,18 @@ public class CategoryService
 
     public string ListCategory()
     {
-        var categories = _categoryRepository.ListCategory();
+        List<Category> categories = _categoryRepository.ListCategory();
 
-        var header = "Id | Name\n";
-        var line = "------------------\n";
-        var body = "";
+        string header = "Id | Name\n";
+        string line = "------------------\n";
+        string body = "";
         
         foreach (var category in categories)
         {
             body += category.Id + "  | " + category.Name + "\n";
         }
         
-        var output = header + line + body;
+        string output = header + line + body;
 
         return output;
     }
