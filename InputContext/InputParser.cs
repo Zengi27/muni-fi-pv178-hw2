@@ -4,8 +4,8 @@ namespace HW02.InputContext;
 
 public class InputParser
 {
-    private CategoryController _categoryController;
-    private ProductController _productController;
+    private readonly CategoryController _categoryController;
+    private readonly ProductController _productController;
 
     public InputParser(CategoryController categoryController, ProductController productController)
     {

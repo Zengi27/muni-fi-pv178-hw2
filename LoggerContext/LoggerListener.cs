@@ -5,8 +5,8 @@ namespace HW02
 {
     public class LoggerListener
     {
-        private LoggerDBContext _loggerDbContext;
-        
+        private readonly LoggerDBContext _loggerDbContext;
+
         public LoggerListener(LoggerDBContext loggerDbContext)
         {
             _loggerDbContext = loggerDbContext;
