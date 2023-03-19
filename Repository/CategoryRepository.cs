@@ -2,6 +2,7 @@ using HW02.BussinessContext;
 using HW02.BussinessContext.FileDatabase;
 using HW02.BussinessContext.Models;
 using HW02.Helpers;
+using HW02.Model;
 
 namespace HW02.Repository;
 
@@ -16,26 +17,30 @@ public class CategoryRepository
         _idGenerator = idGenerator;
     }
     
-    public void AddCategory(string name)
+    public Category AddCategory(string name)
     {
         List<Category> categories = _categoryDbContext.ReadCategories();
         Category category = new Category(_idGenerator.GetNextId(), name);
-        
         categories.Add(category);
         _categoryDbContext.SaveCategories(categories);
+        
+        return category;
     }
 
-    public void DeleteCategory(int categoryId)
+    public Category DeleteCategory(int categoryId)
     {
         List<Category> categories = _categoryDbContext.ReadCategories();
 
         Category category = categories.Find(c => c.Id == categoryId);
+
         if (category == null)
         {
             throw new IdNotFoundException(categoryId);
         }
         categories.Remove(category);
         _categoryDbContext.SaveCategories(categories);
+        
+        return category;
     }
 
     public List<Category> ListCategory()

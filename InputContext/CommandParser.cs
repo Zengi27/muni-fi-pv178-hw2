@@ -24,39 +24,15 @@ public class CommandParser
 
             if (commandName == "list-categories")
             {
-                try
-                {
-                    Validator.ListCommand(command);                    
-                    _categoryController.ListCategories();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                _categoryController.ListCategories(command);
             }
             else if (commandName == "add-category")
             {
-                try
-                {
-                    Validator.AddCategory(command, out string name);
-                    _categoryController.AddCategory(name);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                _categoryController.AddCategory(command);
             }
             else if (commandName == "delete-category")
             {
-                try
-                {
-                    Validator.DeleteCommand(command, out int categoryId);
-                    _categoryController.DeleteCategory(categoryId);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                _categoryController.DeleteCategory(command);
             }
             else if (commandName == "add-product")
             {

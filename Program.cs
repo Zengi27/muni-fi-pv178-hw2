@@ -1,10 +1,13 @@
-﻿using HW02.BussinessContext;
+﻿using HW02.AnalyticalDataContext;
+using HW02.AnalyticalDataContext.DB;
+using HW02.BussinessContext;
 using HW02.BussinessContext.Models;
 using HW02.BussinessContext.FileDatabase;
 using HW02.Controller;
 using HW02.Helpers;
 using HW02.InputContext;
 using HW02.LoggerContext.DB;
+using HW02.Model;
 using HW02.Repository;
 using HW02.Service;
 
@@ -32,14 +35,23 @@ namespace HW02
             LoggerDBContext loggerDbContext = new LoggerDBContext();
             LoggerListener loggerListener = new LoggerListener(loggerDbContext);
 
-            productController.OperationCompleted += loggerListener.OnOperationCompleted; 
+            AnalyticalDBContext analyticalDbContext = new AnalyticalDBContext();
+            AnalyticalDataListener analyticalDataListener = new AnalyticalDataListener(analyticalDbContext);
+            
+            productController.OperationCompleted += loggerListener.OnOperationCompleted;
+            categoryController.OperationCompleted += loggerListener.OnOperationCompleted;
+
+            categoryController.OperationCompleted += analyticalDataListener.OnOperationCompleted;
             
             Seeder seeder = new Seeder(categoryRepository, productRepository);
             
             seeder.Seeding();
-            
+
             CommandParser commandParser = new CommandParser(categoryController, productController);
             commandParser.Parse();
+
+           
+            
         }
     }
 }

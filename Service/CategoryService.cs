@@ -1,3 +1,5 @@
+using HW02.BussinessContext.Models;
+using HW02.Model;
 using HW02.Repository;
 
 namespace HW02.Service;
@@ -13,12 +15,12 @@ public class CategoryService
         _productRepository = productRepository;
     }
 
-    public void AddCategory(string name)
+    public Category AddCategory(string name)
     {
-        _categoryRepository.AddCategory(name);
+        return _categoryRepository.AddCategory(name);
     }
 
-    public void DeleteCategory(int categoryId)
+    public Category DeleteCategory(int categoryId)
     {
         var products = _productRepository.GetProductsByCategory(categoryId);
 
@@ -26,7 +28,8 @@ public class CategoryService
         {
             _productRepository.DeleteProduct(product.Id);
         }
-        _categoryRepository.DeleteCategory(categoryId);
+        
+        return _categoryRepository.DeleteCategory(categoryId);
     }
 
     public string ListCategory()

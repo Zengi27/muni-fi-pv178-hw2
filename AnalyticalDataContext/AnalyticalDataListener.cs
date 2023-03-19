@@ -1,11 +1,66 @@
-﻿namespace HW02.AnalyticalDataContext
+﻿using HW02.AnalyticalDataContext.DB;
+using HW02.Model;
+
+namespace HW02.AnalyticalDataContext
 {
     public class AnalyticalDataListener
     {
-        public AnalyticalDataListener()
+
+        private AnalyticalDBContext _analyticalDbContext;
+        
+        public AnalyticalDataListener(AnalyticalDBContext analyticalDbContext)
         {
+            _analyticalDbContext = analyticalDbContext;
         }
 
-        // TODO: implement the listener here
+        public void OnOperationCompleted(object sender, Log log)
+        {
+            if ((log.OperationResultType == OperationResultType.Success) && (log.LogType != LogType.Get))
+            {
+                var analyticalModels = _analyticalDbContext.ReadAnalyticalData();
+
+                if (log.EntityType == EntityType.Category)
+                {
+                    if (log.LogType == LogType.Add)
+                    {
+                        analyticalModels.Add(new AnalyticalModel()
+                        {
+                            CategoryId = (int)log.EntityId, 
+                            CategoryName = log.EntityName,
+                            ProductCount = 0
+                        });
+                    
+                        _analyticalDbContext.SaveAnalyticalData(analyticalModels);    
+                    }
+
+                    if (log.LogType == LogType.Delete)
+                    {
+                        var analyticalModel = analyticalModels.Find(m => m.CategoryId == log.EntityId);
+
+                        analyticalModels.Remove(analyticalModel);
+                        _analyticalDbContext.SaveAnalyticalData(analyticalModels);
+                    }
+                }
+
+                if (log.EntityType == EntityType.Product)
+                {
+                    if (log.LogType == LogType.Add)
+                    {
+                        var analyticalModel = analyticalModels.Find(m => m.CategoryId == log.CategoryId);
+
+                        analyticalModel.ProductCount++;
+                        _analyticalDbContext.SaveAnalyticalData(analyticalModels);
+                    }
+                    
+                    if (log.LogType == LogType.Delete)
+                    {
+                        var analyticalModel = analyticalModels.Find(m => m.CategoryId == log.CategoryId);
+
+                        analyticalModel.ProductCount--;
+                        _analyticalDbContext.SaveAnalyticalData(analyticalModels);
+                    }
+                }
+            }
+        }
     }
 }

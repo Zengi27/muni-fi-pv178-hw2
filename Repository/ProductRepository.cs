@@ -48,9 +48,10 @@ public class ProductRepository
     {
         List<Product> products = _productDbContext.ReadProducts().FindAll(p => p.CategoryId == categoryId);
 
+        // TODO 
         if (products.Count < 1)
         {
-            throw new IdNotFoundException(categoryId);
+            //throw new IdNotFoundException(categoryId);
         }
 
         return products;

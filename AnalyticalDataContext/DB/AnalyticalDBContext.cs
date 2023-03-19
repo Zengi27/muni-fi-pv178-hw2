@@ -1,5 +1,6 @@
 ﻿using HW02.Helpers;
 using System.Text.Json;
+using HW02.Model;
 
 namespace HW02.AnalyticalDataContext.DB
 {
@@ -15,14 +16,14 @@ namespace HW02.AnalyticalDataContext.DB
         }
 
         // TODO: replace type List<object> in functions headers to the appropriate data model -> List<YourDataModel>
-        public void SaveAnalyticalData(List<object> log)
+        public void SaveAnalyticalData(List<AnalyticalModel> log)
         {
             string jsonString = JsonSerializer.Serialize(log);
             using StreamWriter outputFile = new StreamWriter(_filePath);
             outputFile.WriteLine(jsonString);
         }
 
-        public List<object> ReadAnalyticalData()
+        public List<AnalyticalModel> ReadAnalyticalData()
         {
             string? line;
             using (StreamReader inputFile = new StreamReader(_filePath))
@@ -32,10 +33,10 @@ namespace HW02.AnalyticalDataContext.DB
 
             if (line == null)
             {
-                return new List<object>();
+                return new List<AnalyticalModel>();
             }
 
-            var model = JsonSerializer.Deserialize<List<object>>(line);
+            var model = JsonSerializer.Deserialize<List<AnalyticalModel>>(line);
             return model;
         }
     }
