@@ -37,12 +37,13 @@ public class CategoryService
         List<Category> categories = _categoryRepository.ListCategories();
         
         string header = $"{"Id",-3} | {"Name",-18}\n";
-        string line = new string('-', header.Length) + "\n";
+        string line = new string('-', header.Length);
         string body = "";
         
         foreach (var category in categories)
         {
-            body += $"{category.Id,-3} | {category.Name, -18} \n";
+            body += "\n";
+            body += $"{category.Id,-3} | {category.Name, -18}";
         }
         
         string output = header + line + body;

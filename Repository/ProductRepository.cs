@@ -49,12 +49,7 @@ public class ProductRepository
     public List<Product> GetProductsByCategory(int categoryId)
     {
         List<Product> products = _productDbContext.ReadProducts().FindAll(p => p.CategoryId == categoryId);
-
-        if (products.Count < 1)
-        {
-            throw new IdNotFoundException(categoryId, EntityType.Category);
-        }
-
+        
         return products;
     }
 }
