@@ -1,17 +1,15 @@
-using HW02.BussinessContext.Models;
+using HW02.Model;
 using HW02.Repository;
 
 namespace HW02.Service;
 
 public class ProductService
 {
-    private ProductRepository _productRepository;
-    private CategoryRepository _categoryRepository;
+    private readonly ProductRepository _productRepository;
     
-    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository)
+    public ProductService(ProductRepository productRepository)
     {
         _productRepository = productRepository;
-        _categoryRepository = categoryRepository;
     }
 
     public Product AddProduct(string name, int categoryId, double price)

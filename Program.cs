@@ -1,7 +1,6 @@
 ﻿using HW02.AnalyticalDataContext;
 using HW02.AnalyticalDataContext.DB;
 using HW02.BussinessContext;
-using HW02.BussinessContext.Models;
 using HW02.BussinessContext.FileDatabase;
 using HW02.Controller;
 using HW02.Helpers;
@@ -27,7 +26,7 @@ namespace HW02
             ProductRepository productRepository = new ProductRepository(productDbContext, productIdGenerator);
             
             CategoryService categoryService = new CategoryService(categoryRepository, productRepository);
-            ProductService productService = new ProductService(productRepository, categoryRepository);
+            ProductService productService = new ProductService(productRepository);
             
             CategoryController categoryController = new CategoryController(categoryService);
             ProductController productController = new ProductController(productService);

@@ -1,11 +1,10 @@
-﻿    using HW02.Helpers;
-    using HW02.Model;
+﻿using HW02.Helpers;
+using HW02.Model;
 
-    namespace HW02.LoggerContext.DB
+namespace HW02.LoggerContext.DB
 {
     public class LoggerDBContext
     {
-
         private readonly string[] _paths = { "..", "..", "..", "LoggerContext", "DB", "Storage", "Log.txt" };
         private readonly string _filePath;
 

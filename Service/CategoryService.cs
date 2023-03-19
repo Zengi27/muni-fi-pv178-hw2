@@ -1,4 +1,3 @@
-using HW02.BussinessContext.Models;
 using HW02.Model;
 using HW02.Repository;
 
@@ -6,8 +5,8 @@ namespace HW02.Service;
 
 public class CategoryService
 {
-    private CategoryRepository _categoryRepository;
-    private ProductRepository _productRepository;
+    private readonly CategoryRepository _categoryRepository;
+    private readonly ProductRepository _productRepository;
     
     public CategoryService(CategoryRepository categoryRepository, ProductRepository productRepository)
     {

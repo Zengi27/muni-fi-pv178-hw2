@@ -1,4 +1,3 @@
-using HW02.BussinessContext.Models;
 using HW02.Helpers;
 using HW02.Model;
 using HW02.OutputContext;
@@ -8,7 +7,7 @@ namespace HW02.Controller;
 
 public class CategoryController
 {
-    private CategoryService _categoryService;
+    private readonly CategoryService _categoryService;
     public event EventHandler<Log> OperationCompleted; 
     
     public CategoryController(CategoryService categoryService)

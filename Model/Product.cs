@@ -1,4 +1,4 @@
-namespace HW02.BussinessContext.Models;
+namespace HW02.Model;
 
 public class Product : Category
 {

@@ -1,5 +1,3 @@
-using HW02.BussinessContext.Models;
-
 namespace HW02.Model;
 
 public class Log : EventArgs

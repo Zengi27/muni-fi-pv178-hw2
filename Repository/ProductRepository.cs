@@ -1,14 +1,13 @@
 using HW02.BussinessContext;
-using HW02.BussinessContext.FileDatabase;
-using HW02.BussinessContext.Models;
 using HW02.Helpers;
+using HW02.Model;
 
 namespace HW02.Repository;
 
 public class ProductRepository
 {
-    private ProductDBContext _productDbContext;
-    private IdGenerator _idGenerator;
+    private readonly ProductDBContext _productDbContext;
+    private readonly IdGenerator _idGenerator;
     
     public ProductRepository(ProductDBContext productDbContext, IdGenerator idGenerator)
     {

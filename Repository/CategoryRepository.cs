@@ -1,6 +1,4 @@
-using HW02.BussinessContext;
 using HW02.BussinessContext.FileDatabase;
-using HW02.BussinessContext.Models;
 using HW02.Helpers;
 using HW02.Model;
 
@@ -8,8 +6,8 @@ namespace HW02.Repository;
 
 public class CategoryRepository
 {
-    private CategoryDBContext _categoryDbContext;
-    private IdGenerator _idGenerator;
+    private readonly CategoryDBContext _categoryDbContext;
+    private readonly IdGenerator _idGenerator;
 
     public CategoryRepository(CategoryDBContext categoryDbContext, IdGenerator idGenerator)
     {
