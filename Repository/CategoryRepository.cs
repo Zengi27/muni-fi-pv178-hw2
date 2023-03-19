@@ -42,7 +42,7 @@ public class CategoryRepository
         return category;
     }
 
-    public List<Category> ListCategory()
+    public List<Category> ListCategories()
     {
         return _categoryDbContext.ReadCategories();
     }

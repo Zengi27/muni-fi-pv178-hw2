@@ -5,9 +5,8 @@ namespace HW02.AnalyticalDataContext
 {
     public class AnalyticalDataListener
     {
+        private readonly AnalyticalDBContext _analyticalDbContext;
 
-        private AnalyticalDBContext _analyticalDbContext;
-        
         public AnalyticalDataListener(AnalyticalDBContext analyticalDbContext)
         {
             _analyticalDbContext = analyticalDbContext;
@@ -25,12 +24,12 @@ namespace HW02.AnalyticalDataContext
                     {
                         analyticalModels.Add(new AnalyticalModel()
                         {
-                            CategoryId = (int)log.EntityId, 
+                            CategoryId = (int)log.EntityId,
                             CategoryName = log.EntityName,
                             ProductCount = 0
                         });
-                    
-                        _analyticalDbContext.SaveAnalyticalData(analyticalModels);    
+
+                        _analyticalDbContext.SaveAnalyticalData(analyticalModels);
                     }
 
                     if (log.LogType == LogType.Delete)
@@ -46,14 +45,14 @@ namespace HW02.AnalyticalDataContext
                 {
                     if (log.LogType == LogType.Add)
                     {
-                        analyticalModels.Find(m => m.CategoryId == log.CategoryId).ProductCount++;
+                        analyticalModels.First(m => m.CategoryId == log.CategoryId).ProductCount++;
 
                         _analyticalDbContext.SaveAnalyticalData(analyticalModels);
                     }
-                    
+
                     if (log.LogType == LogType.Delete)
                     {
-                        analyticalModels.Find(m => m.CategoryId == log.CategoryId).ProductCount--;
+                        analyticalModels.First(m => m.CategoryId == log.CategoryId).ProductCount--;
 
                         _analyticalDbContext.SaveAnalyticalData(analyticalModels);
                     }

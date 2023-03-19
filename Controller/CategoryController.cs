@@ -52,7 +52,7 @@ public class CategoryController
         try
         {
             Validator.ListCommand(Command.ListCategories, args);                    
-            string output = _categoryService.ListCategory();
+            string output = _categoryService.ListCategories();
             
             InvokeSuccessfulOperation(LogType.Get, null);
             OutputPrinter.Print(output);

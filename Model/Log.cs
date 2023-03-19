@@ -44,12 +44,26 @@ public class Log : EventArgs
             }
             else
             {
-                logString = $"[{Timestamp}] {LogType}; {EntityType}; {OperationResultType}; {EntityId}; {EntityName} {CategoryId}";
+                if (EntityType == EntityType.Product)
+                {
+                    logString = $"[{Timestamp}] {LogType}; {EntityType}; {OperationResultType}; {EntityId}; {EntityName}; {CategoryId}";
+                }
+                else
+                {
+                    logString = $"[{Timestamp}] {LogType}; {EntityType}; {OperationResultType}; {EntityId}; {EntityName}";
+                }
             }
         }
         else
         {
-            logString = $"[{Timestamp}] {LogType}; {EntityType}; {OperationResultType}; {Message}";
+            if (LogType == LogType.Other)
+            {
+                logString = $"[{Timestamp}] {LogType}; {OperationResultType}; {Message}";
+            }
+            else
+            {
+                logString = $"[{Timestamp}] {LogType}; {EntityType}; {OperationResultType}; {Message}";
+            }
         }
         
         return logString;

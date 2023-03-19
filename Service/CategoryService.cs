@@ -1,3 +1,4 @@
+using System.Text;
 using HW02.Model;
 using HW02.Repository;
 
@@ -31,17 +32,17 @@ public class CategoryService
         return _categoryRepository.DeleteCategory(categoryId);
     }
 
-    public string ListCategory()
+    public string ListCategories()
     {
-        List<Category> categories = _categoryRepository.ListCategory();
-
-        string header = "Id | Name\n";
-        string line = "------------------\n";
+        List<Category> categories = _categoryRepository.ListCategories();
+        
+        string header = $"{"Id",-3} | {"Name",-18}\n";
+        string line = new string('-', header.Length) + "\n";
         string body = "";
         
         foreach (var category in categories)
         {
-            body += category.Id + "  | " + category.Name + "\n";
+            body += $"{category.Id,-3} | {category.Name, -18} \n";
         }
         
         string output = header + line + body;

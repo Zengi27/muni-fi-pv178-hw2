@@ -81,9 +81,10 @@ public class ProductController
         }
     }
 
-    public void UnknownCommand()
+    public void UnknownCommand(string command)
     {
-        OutputPrinter.Print("Command not found");
+        InvokeFailedOperation(LogType.Other, $"Command '{command}' does not exists.");
+        OutputPrinter.Print($"Command '{command}' does not exists.");
     }
     
     private void InvokeSuccessfulOperation(LogType logType, Product? product)

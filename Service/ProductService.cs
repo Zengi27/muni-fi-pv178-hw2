@@ -38,13 +38,13 @@ public class ProductService
 
     private string MakeTableOutput(List<Product> products)
     {
-        string header = $"{"Id",-3}" + " | " + $"{"Name",-10}" + " | " + $"{"CategoryId",-10}" + " | " + "Price\n";
+        string header = $"{"Id",-3} | {"Name",-18} | {"CategoryId",-10} | Price\n";
         string line = new string('-', header.Length) + "\n";
         string body = "";
         
         foreach (var product in products)
         {
-            body += $"{product.Id,-3}" + " | " + $"{product.Name,-10}" + " | " + $"{product.CategoryId,-10}" + " | " + $"{product.Price}\n";
+            body += $"{product.Id,-3} | {product.Name,-18} | {product.CategoryId,-10} | {product.Price}\n";
         }
         
         string output = header + line + body;

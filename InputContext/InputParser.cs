@@ -52,7 +52,7 @@ public class InputParser
             }
             else
             {
-                _productController.UnknownCommand();
+                _productController.UnknownCommand(commandName);
             }
         }
     }

@@ -4,5 +4,6 @@ public enum LogType
 {
     Add, 
     Delete, 
-    Get 
+    Get,
+    Other
 }
