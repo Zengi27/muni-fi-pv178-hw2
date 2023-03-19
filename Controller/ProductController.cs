@@ -19,7 +19,7 @@ public class ProductController
     {
         try
         {
-            Validator.AddProduct(args, out string name, out int categoryId, out double price);
+            Validator.AddProduct(Command.AddProduct, args, out string name, out int categoryId, out double price);
             Product product = _productService.AddProduct(name, categoryId, price);  
 
             InvokeSuccessfulOperation(LogType.Add, product);
@@ -35,7 +35,7 @@ public class ProductController
     {
         try
         {
-            Validator.DeleteCommand(args, out int productId);    
+            Validator.DeleteCommand(Command.DeleteProduct, args, out int productId);    
             Product product = _productService.DeleteProduct(productId);
             
             InvokeSuccessfulOperation(LogType.Delete, product);
@@ -51,7 +51,7 @@ public class ProductController
     {
         try
         {
-            Validator.ListCommand(args);
+            Validator.ListCommand(Command.ListProduct, args);
             string output = _productService.ListProducts();
 
             InvokeSuccessfulOperation(LogType.Get, null);
@@ -68,7 +68,7 @@ public class ProductController
     {
         try
         {
-            Validator.GetProductsByCategory(args, out int categoryId);
+            Validator.GetProductsByCategory(Command.GetProductsByCategory, args, out int categoryId);
             string output = _productService.GetProductsByCategory(categoryId);
             
             InvokeSuccessfulOperation(LogType.Get, null);

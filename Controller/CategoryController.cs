@@ -19,7 +19,7 @@ public class CategoryController
     {
         try
         {
-            Validator.AddCategory(args, out string name);
+            Validator.AddCategory(Command.AddCategory, args, out string name);
             Category category = _categoryService.AddCategory(name);
             
             InvokeSuccessfulOperation(LogType.Add, category);
@@ -35,7 +35,7 @@ public class CategoryController
     {
         try
         {
-            Validator.DeleteCommand(args, out int categoryId);
+            Validator.DeleteCommand(Command.DeleteCategory, args, out int categoryId);
             Category category = _categoryService.DeleteCategory(categoryId);
             
             InvokeSuccessfulOperation(LogType.Delete, category);
@@ -51,7 +51,7 @@ public class CategoryController
     {
         try
         {
-            Validator.ListCommand(args);                    
+            Validator.ListCommand(Command.ListCategories, args);                    
             string output = _categoryService.ListCategory();
             
             InvokeSuccessfulOperation(LogType.Get, null);

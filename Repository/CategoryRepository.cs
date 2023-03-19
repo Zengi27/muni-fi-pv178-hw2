@@ -34,7 +34,7 @@ public class CategoryRepository
 
         if (category == null)
         {
-            throw new IdNotFoundException(categoryId);
+            throw new IdNotFoundException(categoryId, EntityType.Category);
         }
         categories.Remove(category);
         _categoryDbContext.SaveCategories(categories);

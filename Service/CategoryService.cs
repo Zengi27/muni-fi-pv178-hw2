@@ -21,7 +21,7 @@ public class CategoryService
 
     public Category DeleteCategory(int categoryId)
     {
-        var products = _productRepository.GetProductsByCategory(categoryId);
+        var products = _productRepository.ListProducts().FindAll(p => p.CategoryId == categoryId);
 
         foreach (var product in products)
         {

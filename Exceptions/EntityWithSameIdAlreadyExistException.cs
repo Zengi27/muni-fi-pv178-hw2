@@ -2,6 +2,6 @@
 {
     public class EntityWithSameIdAlreadyExistException<T> : Exception
     {
-        public EntityWithSameIdAlreadyExistException(T entity) : base($"{entity} already exists") { }
+        public EntityWithSameIdAlreadyExistException(T entity) : base($"{entity} already exists.") { }
     }
 }

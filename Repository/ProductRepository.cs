@@ -29,11 +29,11 @@ public class ProductRepository
     public Product DeleteProduct(int productId)
     {
         List<Product> products = _productDbContext.ReadProducts();
-
         Product product = products.Find(p => p.Id == productId);
+        
         if (product == null)
         {
-            throw new IdNotFoundException(productId);
+            throw new IdNotFoundException(productId, EntityType.Product);
         }
         products.Remove(product);
         _productDbContext.SaveProducts(products);
@@ -50,10 +50,9 @@ public class ProductRepository
     {
         List<Product> products = _productDbContext.ReadProducts().FindAll(p => p.CategoryId == categoryId);
 
-        // TODO 
         if (products.Count < 1)
         {
-            //throw new IdNotFoundException(categoryId);
+            throw new IdNotFoundException(categoryId, EntityType.Category);
         }
 
         return products;
