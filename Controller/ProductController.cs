@@ -2,6 +2,7 @@ using System.Diagnostics.Tracing;
 using HW02.BussinessContext.Models;
 using HW02.Helpers;
 using HW02.Model;
+using HW02.OutputContext;
 using HW02.Service;
 
 namespace HW02.Controller;
@@ -28,7 +29,7 @@ public class ProductController
         catch (Exception e)
         {
             InvokeFailedOperation(LogType.Add, e.Message);
-            Console.WriteLine(e.Message);
+            OutputPrinter.Print(e.Message);
         }
     }
 
@@ -44,7 +45,7 @@ public class ProductController
         catch (Exception e)
         {
             InvokeFailedOperation(LogType.Delete, e.Message);
-            Console.WriteLine(e.Message);
+            OutputPrinter.Print(e.Message);
         }
     }
 
@@ -56,12 +57,12 @@ public class ProductController
             string output = _productService.ListProducts();
 
             InvokeSuccessfulOperation(LogType.Get, null);
-            Console.WriteLine(output);
+            OutputPrinter.Print(output);
         }
         catch (Exception e)
         {
             InvokeFailedOperation(LogType.Get, e.Message);
-            Console.WriteLine(e.Message);
+            OutputPrinter.Print(e.Message);
         }
     }
 
@@ -73,18 +74,18 @@ public class ProductController
             string output = _productService.GetProductsByCategory(categoryId);
             
             InvokeSuccessfulOperation(LogType.Get, null);
-            Console.WriteLine(output);
+            OutputPrinter.Print(output);
         }
         catch (Exception e)
         {
             InvokeFailedOperation(LogType.Get, e.Message);
-            Console.WriteLine(e.Message);
+            OutputPrinter.Print(e.Message);
         }
     }
 
     public void UnknownCommand()
     {
-        Console.WriteLine("Command not found");
+        OutputPrinter.Print("Command not found");
     }
     
     private void InvokeSuccessfulOperation(LogType logType, Product? product)

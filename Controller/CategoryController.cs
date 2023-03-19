@@ -1,6 +1,7 @@
 using HW02.BussinessContext.Models;
 using HW02.Helpers;
 using HW02.Model;
+using HW02.OutputContext;
 using HW02.Service;
 
 namespace HW02.Controller;
@@ -27,7 +28,7 @@ public class CategoryController
         catch (Exception e)
         {
             InvokeFailedOperation(LogType.Add, e.Message);
-            Console.WriteLine(e.Message);
+            OutputPrinter.Print(e.Message);
         }
     }
 
@@ -43,7 +44,7 @@ public class CategoryController
         catch (Exception e)
         {
             InvokeFailedOperation(LogType.Delete, e.Message);
-            Console.WriteLine(e.Message);
+            OutputPrinter.Print(e.Message);
         }
     }
 
@@ -55,12 +56,12 @@ public class CategoryController
             string output = _categoryService.ListCategory();
             
             InvokeSuccessfulOperation(LogType.Get, null);
-            Console.WriteLine(output);
+            OutputPrinter.Print(output);
         }
         catch (Exception e)
         {
             InvokeFailedOperation(LogType.Get, e.Message);
-            Console.WriteLine(e.Message);
+            OutputPrinter.Print(e.Message);
         }
     }
 
