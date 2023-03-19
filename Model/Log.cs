@@ -1,3 +1,5 @@
+using HW02.BussinessContext.Models;
+
 namespace HW02.Model;
 
 public class Log : EventArgs
@@ -11,6 +13,27 @@ public class Log : EventArgs
     public int? CategoryId { get; set; }
     public string? Message { get; set; }
     
+    
+    public Log(LogType logType, EntityType entityType, OperationResultType operationResultType, Category? entity, string message)
+    {
+        Timestamp = DateTime.Now.ToString("dd'/'MM'/'yyyy HH:mm:ss");
+        LogType = logType;
+        EntityType = entityType;
+        OperationResultType = operationResultType;
+        Message = message;
+
+        if (entity != null)
+        {
+            EntityId = entity.Id;
+            EntityName = entity.Name;
+
+            if (entity is Product product)
+            {
+                CategoryId = product.CategoryId;
+            }
+        }
+    }
+
     public string ToLogString()
     {
         string logString;

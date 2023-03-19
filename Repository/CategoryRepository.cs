@@ -21,6 +21,7 @@ public class CategoryRepository
     {
         List<Category> categories = _categoryDbContext.ReadCategories();
         Category category = new Category(_idGenerator.GetNextId(), name);
+        
         categories.Add(category);
         _categoryDbContext.SaveCategories(categories);
         

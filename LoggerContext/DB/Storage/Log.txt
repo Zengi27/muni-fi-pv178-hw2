@@ -1,2 +1,7 @@
-[18/03/2023 22:10:50] Add; Category; Success; 4; ferko 
-[18/03/2023 22:11:34] Add; Category; Success; ;  
+[19/03/2023 13:27:45] Add; Category; Success; 1; fruit 
+[19/03/2023 13:27:46] Add; Category; Success; 2; vegetables 
+[19/03/2023 13:27:46] Add; Category; Success; 3; animals 
+[19/03/2023 13:27:46] Add; Product; Success; 1; apple 1
+[19/03/2023 13:27:46] Add; Product; Success; 2; banana 1
+[19/03/2023 13:27:46] Add; Product; Success; 3; carrot 2
+[19/03/2023 13:27:48] Get; Product; Success

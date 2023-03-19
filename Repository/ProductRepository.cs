@@ -16,17 +16,18 @@ public class ProductRepository
         _idGenerator = idGenerator;
     }
     
-    public void AddProduct(string name, int categoryId, double price)
+    public Product AddProduct(string name, int categoryId, double price)
     {
         List<Product> products = _productDbContext.ReadProducts();
         Product product = new Product(_idGenerator.GetNextId(), name, categoryId, price);
         
-
         products.Add(product);
         _productDbContext.SaveProducts(products);
+
+        return product;
     }
 
-    public void DeleteProduct(int productId)
+    public Product DeleteProduct(int productId)
     {
         List<Product> products = _productDbContext.ReadProducts();
 
@@ -37,6 +38,8 @@ public class ProductRepository
         }
         products.Remove(product);
         _productDbContext.SaveProducts(products);
+
+        return product;
     }
 
     public List<Product> ListProducts()

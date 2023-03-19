@@ -21,66 +21,35 @@ public class CommandParser
             string input = Console.ReadLine();
             string[] command = input.Split(' ');
             var commandName = command[0];
-
+            var args = command.Skip(1).ToArray();
+            
             if (commandName == "list-categories")
             {
-                _categoryController.ListCategories(command);
+                _categoryController.ListCategories(args);
             }
             else if (commandName == "add-category")
             {
-                _categoryController.AddCategory(command);
+                _categoryController.AddCategory(args);
             }
             else if (commandName == "delete-category")
             {
-                _categoryController.DeleteCategory(command);
+                _categoryController.DeleteCategory(args);
             }
             else if (commandName == "add-product")
             {
-                try
-                {
-                    Validator.AddProduct(command, out string name, out int categoryId, out double price);
-                    _productController.AddProduct(name, categoryId, price);   
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+                _productController.AddProduct(args);   
             }
             else if (commandName == "delete-product")
             {
-                try
-                {
-                    Validator.DeleteCommand(command, out int productId);    
-                    _productController.DeleteProduct(productId);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+                _productController.DeleteProduct(args);
             }
             else if (commandName == "list-products")
             {
-                try
-                {
-                    Validator.ListCommand(command);
-                    _productController.ListProducts();   
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+                _productController.ListProducts(args); 
             }
             else if (commandName == "get-products-by-category")
             {
-                try
-                {
-                    Validator.GetProductsByCategory(command, out int categoryId);
-                    _productController.GetProductsByCategory(categoryId);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+                _productController.GetProductsByCategory(args);
             }
             else
             {

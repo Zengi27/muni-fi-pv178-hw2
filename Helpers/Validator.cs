@@ -2,41 +2,41 @@ namespace HW02.Helpers;
 
 public static class Validator
 {
-    public static void ListCommand(string[] command)
+    public static void ListCommand(string[] args)
     {
-        CheckNumberOfArgument(command, 0);
+        CheckNumberOfArgument(args, 0);
     }
 
-    public static void DeleteCommand(string[] command, out int id)
+    public static void DeleteCommand(string[] args, out int id)
     {
-        CheckNumberOfArgument(command, 1);
-        id = CheckInt(command[1]);
+        CheckNumberOfArgument(args, 1);
+        id = CheckInt(args[0]);
     }
     
-    public static void AddCategory(string[] command, out string name)
+    public static void AddCategory(string[] args, out string name)
     {
-        CheckNumberOfArgument(command, 1);
-        name = CheckString(command[1]);
+        CheckNumberOfArgument(args, 1);
+        name = CheckString(args[0]);
     }
 
-    public static void AddProduct(string[] command, out string name, out int categoryId, out double price)
+    public static void AddProduct(string[] args, out string name, out int categoryId, out double price)
     {
-        CheckNumberOfArgument(command, 3);
-        name = CheckString(command[1]);
-        categoryId = CheckInt(command[2]);
-        price = CheckDouble(command[3]);
+        CheckNumberOfArgument(args, 3);
+        name = CheckString(args[0]);
+        categoryId = CheckInt(args[1]);
+        price = CheckDouble(args[2]);
     }
 
-    public static void GetProductsByCategory(string[] command, out int categoryId)
+    public static void GetProductsByCategory(string[] args, out int categoryId)
     {
-        CheckNumberOfArgument(command, 1);
-        categoryId = CheckInt(command[1]);
+        CheckNumberOfArgument(args, 1);
+        categoryId = CheckInt(args[0]);
     }
     
 
-    private static void CheckNumberOfArgument(string[] command, int requiredNumber)
+    private static void CheckNumberOfArgument(string[] args, int requiredNumber)
     {
-        if ((command.Length - 1) != requiredNumber)
+        if ((args.Length) != requiredNumber)
         {
             throw new InvalidArgumentException();
         }

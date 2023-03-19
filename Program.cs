@@ -30,7 +30,7 @@ namespace HW02
             ProductService productService = new ProductService(productRepository, categoryRepository);
             
             CategoryController categoryController = new CategoryController(categoryService);
-            ProductController productController = new ProductController(productService, categoryService);
+            ProductController productController = new ProductController(productService);
 
             LoggerDBContext loggerDbContext = new LoggerDBContext();
             LoggerListener loggerListener = new LoggerListener(loggerDbContext);
@@ -42,16 +42,14 @@ namespace HW02
             categoryController.OperationCompleted += loggerListener.OnOperationCompleted;
 
             categoryController.OperationCompleted += analyticalDataListener.OnOperationCompleted;
+            productController.OperationCompleted += analyticalDataListener.OnOperationCompleted;
             
-            Seeder seeder = new Seeder(categoryRepository, productRepository);
+            Seeder seeder = new Seeder(categoryController, productController);
             
             seeder.Seeding();
 
             CommandParser commandParser = new CommandParser(categoryController, productController);
             commandParser.Parse();
-
-           
-            
         }
     }
 }

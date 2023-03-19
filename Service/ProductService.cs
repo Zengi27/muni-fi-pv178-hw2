@@ -14,14 +14,14 @@ public class ProductService
         _categoryRepository = categoryRepository;
     }
 
-    public void AddProduct(string name, int categoryId, double price)
+    public Product AddProduct(string name, int categoryId, double price)
     {
-        _productRepository.AddProduct(name, categoryId, price);
+        return _productRepository.AddProduct(name, categoryId, price);
     }
 
-    public void DeleteProduct(int productId)
+    public Product DeleteProduct(int productId)
     {
-        _productRepository.DeleteProduct(productId);
+        return _productRepository.DeleteProduct(productId);
     }
 
     public string ListProducts()

@@ -15,7 +15,6 @@ namespace HW02.AnalyticalDataContext.DB
             FileHelper.CreateFile(_filePath);
         }
 
-        // TODO: replace type List<object> in functions headers to the appropriate data model -> List<YourDataModel>
         public void SaveAnalyticalData(List<AnalyticalModel> log)
         {
             string jsonString = JsonSerializer.Serialize(log);

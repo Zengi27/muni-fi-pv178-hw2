@@ -46,17 +46,15 @@ namespace HW02.AnalyticalDataContext
                 {
                     if (log.LogType == LogType.Add)
                     {
-                        var analyticalModel = analyticalModels.Find(m => m.CategoryId == log.CategoryId);
+                        analyticalModels.Find(m => m.CategoryId == log.CategoryId).ProductCount++;
 
-                        analyticalModel.ProductCount++;
                         _analyticalDbContext.SaveAnalyticalData(analyticalModels);
                     }
                     
                     if (log.LogType == LogType.Delete)
                     {
-                        var analyticalModel = analyticalModels.Find(m => m.CategoryId == log.CategoryId);
+                        analyticalModels.Find(m => m.CategoryId == log.CategoryId).ProductCount--;
 
-                        analyticalModel.ProductCount--;
                         _analyticalDbContext.SaveAnalyticalData(analyticalModels);
                     }
                 }

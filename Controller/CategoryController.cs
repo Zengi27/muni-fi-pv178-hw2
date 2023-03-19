@@ -15,14 +15,14 @@ public class CategoryController
         _categoryService = categoryService;
     }
 
-    public void AddCategory(string[] command)
+    public void AddCategory(string[] args)
     {
         try
         {
-            Validator.AddCategory(command, out string name);
+            Validator.AddCategory(args, out string name);
             Category category = _categoryService.AddCategory(name);
             
-            InvokeSuccessfulOperation(LogType.Add, category.Id, category.Name);
+            InvokeSuccessfulOperation(LogType.Add, category);
         }
         catch (Exception e)
         {
@@ -31,14 +31,14 @@ public class CategoryController
         }
     }
 
-    public void DeleteCategory(string[] command)
+    public void DeleteCategory(string[] args)
     {
         try
         {
-            Validator.DeleteCommand(command, out int categoryId);
+            Validator.DeleteCommand(args, out int categoryId);
             Category category = _categoryService.DeleteCategory(categoryId);
             
-            InvokeSuccessfulOperation(LogType.Delete, category.Id, category.Name);
+            InvokeSuccessfulOperation(LogType.Delete, category);
         }
         catch (Exception e)
         {
@@ -47,14 +47,14 @@ public class CategoryController
         }
     }
 
-    public void ListCategories(string[] command)
+    public void ListCategories(string[] args)
     {
         try
         {
-            Validator.ListCommand(command);                    
+            Validator.ListCommand(args);                    
             string output = _categoryService.ListCategory();
             
-            InvokeSuccessfulOperation(LogType.Get, null, null);
+            InvokeSuccessfulOperation(LogType.Get, null);
             Console.WriteLine(output);
         }
         catch (Exception e)
@@ -63,32 +63,18 @@ public class CategoryController
             Console.WriteLine(e.Message);
         }
     }
-    
-    private void InvokeSuccessfulOperation(LogType logType, int? categoryId, string? categoryName)
+
+    private void InvokeSuccessfulOperation(LogType logType, Category? category)
     {
-        Log log = new Log()
-        {
-            Timestamp = DateTime.Now.ToString("dd'/'MM'/'yyyy HH:mm:ss"),
-            LogType = logType,
-            EntityType = EntityType.Category,
-            OperationResultType = OperationResultType.Success,
-            EntityId = categoryId,
-            EntityName = categoryName,
-        };
+        Log log = new Log(logType, EntityType.Category, OperationResultType.Success, category, "");
 
         OperationCompleted?.Invoke(this, log);
     }
     
     private void InvokeFailedOperation(LogType logType, string message)
     {
-        Log log = new Log()
-        {
-            Timestamp = DateTime.Now.ToString("dd'/'MM'/'yyyy HH:mm:ss"),
-            LogType = logType,
-            OperationResultType = OperationResultType.Failure,
-            Message = message
-        };
-        
+        Log log = new Log(logType, EntityType.Category, OperationResultType.Failure, null, message);
+
         OperationCompleted?.Invoke(this, log);
     }
 }

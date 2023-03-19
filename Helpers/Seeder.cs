@@ -1,28 +1,29 @@
 using HW02.BussinessContext;
 using HW02.BussinessContext.FileDatabase;
+using HW02.Controller;
 using HW02.Repository;
 
 namespace HW02.Helpers;
 
 public class Seeder
 {
-    private CategoryRepository _categoryRepository;
-    private ProductRepository _productRepository;
+    private readonly CategoryController _categoryController;
+    private readonly ProductController _productController;
 
-    public Seeder(CategoryRepository categoryRepository, ProductRepository productRepository)
+    public Seeder(CategoryController categoryController, ProductController productController)
     {
-        _categoryRepository = categoryRepository;
-        _productRepository = productRepository;
+        _categoryController = categoryController;
+        _productController = productController;
     }
 
     public void Seeding()
     {
-        _categoryRepository.AddCategory("fruit");
-        _categoryRepository.AddCategory("vegetables");
-        _categoryRepository.AddCategory("animals");
+        _categoryController.AddCategory(new string[] {"fruit"});
+        _categoryController.AddCategory(new string[] {"vegetables"});
+        _categoryController.AddCategory(new string[] {"animals"});
 
-        _productRepository.AddProduct("apple", 1, 35);
-        _productRepository.AddProduct("banana", 1, 10);
-        _productRepository.AddProduct("carrot", 2, 5);
+        _productController.AddProduct(new string[]{"apple", "1", "35"});
+        _productController.AddProduct(new string[]{"banana", "1", "10"});
+        _productController.AddProduct(new string[]{"carrot", "2", "5"});
     }
 }

@@ -1,5 +1,6 @@
 using System.Diagnostics.Tracing;
 using HW02.BussinessContext.Models;
+using HW02.Helpers;
 using HW02.Model;
 using HW02.Service;
 
@@ -8,38 +9,77 @@ namespace HW02.Controller;
 public class ProductController
 {
     private ProductService _productService;
-    private CategoryService _categoryService;
     public event EventHandler<Log> OperationCompleted; 
 
-    public ProductController(ProductService productService, CategoryService categoryService)
+    public ProductController(ProductService productService)
     {
         _productService = productService;
-        _categoryService = categoryService;
     }
 
-    public void AddProduct(string name, int categoryId, double price)
+    public void AddProduct(string[] args)
     {
-        _productService.AddProduct(name, categoryId, price); 
-        InvokeSuccessfulOperation();
+        try
+        {
+            Validator.AddProduct(args, out string name, out int categoryId, out double price);
+            Product product = _productService.AddProduct(name, categoryId, price);  
+
+            InvokeSuccessfulOperation(LogType.Add, product);
+        }
+        catch (Exception e)
+        {
+            InvokeFailedOperation(LogType.Add, e.Message);
+            Console.WriteLine(e.Message);
+        }
     }
 
-    public void DeleteProduct(int productId)
+    public void DeleteProduct(string[] args)
     {
-        _productService.DeleteProduct(productId);
+        try
+        {
+            Validator.DeleteCommand(args, out int productId);    
+            Product product = _productService.DeleteProduct(productId);
+            
+            InvokeSuccessfulOperation(LogType.Delete, product);
+        }
+        catch (Exception e)
+        {
+            InvokeFailedOperation(LogType.Delete, e.Message);
+            Console.WriteLine(e.Message);
+        }
     }
 
-    public void ListProducts()
+    public void ListProducts(string[] args)
     {
-        string output = _productService.ListProducts();
-        
-        Console.WriteLine(output);
+        try
+        {
+            Validator.ListCommand(args);
+            string output = _productService.ListProducts();
+
+            InvokeSuccessfulOperation(LogType.Get, null);
+            Console.WriteLine(output);
+        }
+        catch (Exception e)
+        {
+            InvokeFailedOperation(LogType.Get, e.Message);
+            Console.WriteLine(e.Message);
+        }
     }
 
-    public void GetProductsByCategory(int categoryId)
+    public void GetProductsByCategory(string[] args)
     {
-        string output = _productService.GetProductsByCategory(categoryId);
-        
-        Console.WriteLine(output);
+        try
+        {
+            Validator.GetProductsByCategory(args, out int categoryId);
+            string output = _productService.GetProductsByCategory(categoryId);
+            
+            InvokeSuccessfulOperation(LogType.Get, null);
+            Console.WriteLine(output);
+        }
+        catch (Exception e)
+        {
+            InvokeFailedOperation(LogType.Get, e.Message);
+            Console.WriteLine(e.Message);
+        }
     }
 
     public void UnknownCommand()
@@ -47,19 +87,17 @@ public class ProductController
         Console.WriteLine("Command not found");
     }
     
-    private void InvokeSuccessfulOperation()
+    private void InvokeSuccessfulOperation(LogType logType, Product? product)
     {
-        OperationCompleted?.Invoke(this, new Log()
-        {
-            Timestamp = DateTime.Now.ToString("dd'/'MM'/'yyyy HH:mm:ss")
-        });
+        Log log = new Log(logType, EntityType.Product, OperationResultType.Success, product, "");
+        
+        OperationCompleted?.Invoke(this, log);
     }
 
-    private void InvokeFailedOperation()
+    private void InvokeFailedOperation(LogType logType, string message)
     {
-        OperationCompleted?.Invoke(this, new Log()
-        {
-            
-        });
+        Log log = new Log(logType, EntityType.Product, OperationResultType.Failure, null, message);
+
+        OperationCompleted?.Invoke(this, log);
     }
 }
